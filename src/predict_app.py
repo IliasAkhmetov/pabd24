@@ -11,7 +11,7 @@ MODEL_SAVE_PATH = 'models/linear_regression_v01.joblib'
 app = Flask(__name__)
 CORS(app)
 
-config = dotenv_values(".env")
+config = dotenv_values("../.env")
 auth = HTTPTokenAuth(scheme='Bearer')
 
 tokens = {
