@@ -2,6 +2,8 @@
 import argparse
 import logging
 import pandas as pd
+import os
+from pathlib import Path
 
 logger = logging.getLogger(__name__)
 logging.basicConfig(
@@ -20,8 +22,13 @@ OUT_VAL = 'data/proc/val.csv'
 
 TRAIN_SIZE = 0.9
 
+def ensure_directories_exist(paths):
+    for path in paths:
+        directory = os.path.dirname(path)
+        Path(directory).mkdir(parents=True, exist_ok=True)
 
 def main(args):
+    ensure_directories_exist([OUT_TRAIN, OUT_VAL])
     main_dataframe = pd.read_csv(args.input[0], delimiter=',')
     for i in range(1, len(args.input)):
         data = pd.read_csv(args.input[i], delimiter=',')
