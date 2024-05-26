@@ -1,5 +1,7 @@
 """Upload selected files to S3 storage"""
 import argparse
+import os
+from pathlib import Path
 
 from dotenv import dotenv_values
 import boto3
@@ -19,7 +21,14 @@ client = boto3.client(
 )
 
 
+def ensure_directories_exist(paths):
+    for path in paths:
+        directory = os.path.dirname(path)
+        Path(directory).mkdir(parents=True, exist_ok=True)
+
+
 def main(args):
+    ensure_directories_exist(args.input)
     for csv_path in args.input:
         remote_name = f'{YOUR_ID}/' + csv_path.replace('\\', '/')
         client.download_file(BUCKET_NAME, remote_name, csv_path)
