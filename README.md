@@ -21,35 +21,46 @@ pip install -r requirements.txt
 
 ### 1. Сбор данных о ценах на недвижимость 
 Для парсинга информации о квартирах используйте следующий скрипт:  
-```python src/parse_cian.py ```
+``` bash 
+python src/parse_cian.py 
+```
 Предварительно в n_rooms выбрать количество комнат, которые хотите спарсить. 
 
 ### 2. Выгрузка данных в хранилище S3 
 Для доступа к хранилищу скопируйте файл .env в корень проекта.
 Для выгрузки данных в хранилище S3 воспользуйтесь скриптом:
 
-```python src/upload_to_s3.py -i data/raw/file.csv ```
+``` bash 
+python src/upload_to_s3.py -i data/raw/file.csv 
+```
 
 ### 3. Загрузка данных из S3 на локальную машину  
 Вы можете скачать данные о квартирах, которые уже были спарсены на локальную машину:  
 скрипт:
 
-```python src/download_from_s3.py```
+``` bash
+python src/download_from_s3.py
+```
 
 ### 4. Предварительная обработка данных
 Скрипт для предобработки данных:  
 
-```python src/preprocess_data.py```
+``` bash
+python src/preprocess_data.py
+```
 
 ### 5. Обучение модели 
 Скрипт для обучения модели
 
-```python src/train_model.py```
-
+```bash 
+python src/train_model.py
+```
 ### 6. Запуск приложения flask 
 Для запуска приложения flask запустите скрипт:
 
-```python src/predict_app.py```
+```bash 
+python src/predict_app.py
+```
 
 ### 7. Запуск приложения gunicorn
 
