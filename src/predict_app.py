@@ -6,7 +6,7 @@ from flask_cors import CORS
 from joblib import load
 from flask_httpauth import HTTPTokenAuth
 from flask import send_from_directory
-from utils import predict_io_bounded, predict_cpu_bounded, predict_cpu_multithread
+# from utils import predict_io_bounded, predict_cpu_bounded, predict_cpu_multithread
 import time
 import numpy as np
 
@@ -60,9 +60,6 @@ def predict(in_data: dict) -> int:
     # price = model.predict([[area]])
     price = predict_io_bounded(area, 10000000)
     return int(price)
-
-
-
 
 
 @app.route("/")
