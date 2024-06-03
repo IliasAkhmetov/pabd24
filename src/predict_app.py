@@ -58,7 +58,7 @@ def predict(in_data: dict) -> int:
     """
     area = float(in_data['area'])
     # price = model.predict([[area]])
-    price = predict_io_bounded(area, 10000000)
+    price = predict_io_bounded(area)
     return int(price)
 
 
