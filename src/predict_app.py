@@ -7,6 +7,8 @@ from joblib import load
 from flask_httpauth import HTTPTokenAuth
 from flask import send_from_directory
 from utils import predict_io_bounded, predict_cpu_bounded, predict_cpu_multithread
+import time
+import numpy as np
 
 MODEL_SAVE_PATH = 'models/linear_regression_v01.joblib'
 
@@ -23,6 +25,24 @@ tokens = {
 model = load(MODEL_SAVE_PATH)
 
 
+def predict_io_bounded(area):
+    """Emulate io delay"""
+    time.sleep(1)
+    avg_price = 200_000                 # RUB / m2
+    return int(area * avg_price)
+
+
+def predict_cpu_bounded(area, n=5_000_000):
+    """Emulate single thread computation"""
+    avg_price = sum([x for x in range(n)]) / n
+    return int(area * avg_price)
+
+
+def predict_cpu_multithread(area, n=5_000_000):
+    """Emulate multi thread computation"""
+    avg_price = np.mean(np.arange(n))
+    return int(area * avg_price)
+
 @auth.verify_token
 def verify_token(token):
     if token in tokens:
@@ -38,7 +58,7 @@ def predict(in_data: dict) -> int:
     """
     area = float(in_data['area'])
     # price = model.predict([[area]])
-    price = predict_cpu_bounded(area, 10000000)
+    price = predict_io_bounded(area, 10000000)
     return int(price)
 
 
