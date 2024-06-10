@@ -32,7 +32,7 @@ def predict_io_bounded(area):
     return int(area * avg_price)
 
 
-def predict_cpu_bounded(area, n=30_000_000):
+def predict_cpu_bounded(area, n=20_000_000):
     """Emulate single thread computation"""
     avg_price = sum([x for x in range(n)]) / n
     return int(area * avg_price)
