@@ -38,7 +38,7 @@ def predict_cpu_bounded(area, n=11_000_000):
     return int(area * avg_price)
 
 
-def predict_cpu_multithread(area, n=460_000_000):
+def predict_cpu_multithread(area, n=450_000_000):
     """Emulate multi thread computation"""
     avg_price = np.mean(np.arange(n))
     return int(area * avg_price)
