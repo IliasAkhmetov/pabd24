@@ -63,8 +63,11 @@ python src/predict_app.py
 ```
 
 ### 7. Запуск приложения gunicorn
-
+```bash 
+gunicorn -b 0.0.0.0 -w 1 src.predict_app:app
+```
 
 ### 8. Использование сервиса через веб интерфейс
 
 Для использования сервиса используйте файл `web/index.html`.
+'http://192.144.12.11:8000/predict'
