@@ -6,11 +6,9 @@ from flask_cors import CORS
 from joblib import load
 from flask_httpauth import HTTPTokenAuth
 from flask import send_from_directory
-# from utils import predict_io_bounded, predict_cpu_bounded, predict_cpu_multithread
-import time
-import numpy as np
+from utils import predict_io_bounded, predict_cpu_bounded, predict_cpu_multithread
 
-MODEL_SAVE_PATH = 'models/linear_regression_v01.joblib'
+MODEL_SAVE_PATH = 'models/ff_linear_regression_v01.joblib'
 
 app = Flask(__name__)
 CORS(app)
@@ -24,24 +22,6 @@ tokens = {
 
 model = load(MODEL_SAVE_PATH)
 
-
-def predict_io_bounded(area):
-    """Emulate io delay"""
-    time.sleep(1)
-    avg_price = 200_000                 # RUB / m2
-    return int(area * avg_price)
-
-
-def predict_cpu_bounded(area, n=5_000_000_000):
-    """Emulate single thread computation"""
-    avg_price = sum([x for x in range(n)]) / n
-    return int(area * avg_price)
-
-
-def predict_cpu_multithread(area, n=5_000_000):
-    """Emulate multi thread computation"""
-    avg_price = np.mean(np.arange(n))
-    return int(area * avg_price)
 
 @auth.verify_token
 def verify_token(token):
@@ -57,9 +37,23 @@ def predict(in_data: dict) -> int:
     :rtype: int
     """
     area = float(in_data['area'])
-    # price = model.predict([[area]])
-    price = predict_cpu_bounded(area)
+    floor = int(in_data['floor'])
+    floors_count = int(in_data['floors_count'])
+    is_first = (floor == 1)
+    is_last = (floor == floors_count)
+    price = model.predict([[area,
+                            is_first,
+                            is_last,
+                            floors_count]])
     return int(price)
+
+
+
+@app.route('/favicon.ico')
+def favicon():
+    return send_from_directory(
+        os.path.join(app.root_path, 'static'),
+                               'favicon.ico', mimetype='image/vnd.microsoft.icon')
 
 
 @app.route("/")
