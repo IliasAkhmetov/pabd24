@@ -27,7 +27,7 @@ model = load(MODEL_SAVE_PATH)
 
 def predict_io_bounded(area):
     """Emulate io delay"""
-    time.sleep(1)
+    # time.sleep(1)
     avg_price = 200_000                 # RUB / m2
     return int(area * avg_price)
 
