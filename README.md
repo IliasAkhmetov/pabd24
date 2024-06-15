@@ -71,3 +71,9 @@ gunicorn -b 0.0.0.0 -w 1 src.predict_app:app
 
 Для использования сервиса используйте файл `web/index.html`.
 'http://192.144.12.11:8000/predict'
+
+
+Для запуска приложения используйте docker:
+```bash 
+docker run iliasakhmetov/pabd24:latest
+```
