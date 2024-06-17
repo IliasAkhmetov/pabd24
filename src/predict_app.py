@@ -24,10 +24,10 @@ model = load(MODEL_SAVE_PATH)
 
 
 @auth.verify_token
-# def verify_token(token):
-#     if token in tokens:
-#         return tokens[token]
-#
+ def verify_token(token):
+     if token in tokens:
+         return tokens[token]
+
 #
 #     area = float(in_data['area'])
 #     floor = int(in_data['floor'])
