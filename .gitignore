@@ -3,3 +3,4 @@ venv
 /.env
 /.env.prod
 credentials
+catboost_info
