@@ -25,9 +25,9 @@ PRICE_THRESHOLD = 30_000_000
 
 
 def main(args):
-    main_dataframe = pd.read_csv(args.input[0], delimiter=';')
+    main_dataframe = pd.read_csv(args.input[0], delimiter=',')
     for i in range(1, len(args.input)):
-        data = pd.read_csv(args.input[i], delimiter=';')
+        data = pd.read_csv(args.input[i], delimiter=',')
         df = pd.DataFrame(data)
         main_dataframe = pd.concat([main_dataframe, df], axis=0)
 
