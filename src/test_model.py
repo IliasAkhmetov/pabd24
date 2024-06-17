@@ -1,10 +1,11 @@
 import argparse
 import logging
 import pandas as pd
+from catboost import CatBoostRegressor
 from joblib import load
 from sklearn.metrics import mean_absolute_error
 
-MODEL_SAVE_PATH = 'models/linear_regression_v01.joblib'
+MODEL_SAVE_PATH = 'models/catboost_regression_v01.joblib'
 TEST_DATA = 'data/proc/test.csv'
 
 logger = logging.getLogger(__name__)
@@ -21,11 +22,17 @@ def main(args):
                       'first_floor',
                       'last_floor',
                       'floors_count',
+                      'underground'  # добавляем категориальный признак
                       ]]
     y_test = df_test['price']
+
     model = load(args.model)
+
+    # Предсказание на тестовых данных
     y_pred = model.predict(x_test)
-    mae = mean_absolute_error(y_pred, y_test)
+
+    # Вычисление MAE
+    mae = mean_absolute_error(y_test, y_pred)
     logger.info(f'Test model {args.model} on {TEST_DATA}, MAE = {mae:.0f}')
 
 
