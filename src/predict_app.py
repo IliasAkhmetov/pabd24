@@ -36,17 +36,15 @@ def predict(in_data: dict) -> int:
     :return: House price, RUB.
     :rtype: int
     """
-    area = float(in_data['area'])
+    total_meters = float(in_data['total_meters'])
     floor = int(in_data['floor'])
     floors_count = int(in_data['floors_count'])
-    is_first = (floor == 1)
-    is_last = (floor == floors_count)
-    price = model.predict([[area,
-                            is_first,
-                            is_last,
-                            floors_count]])
-    return int(price)
+    first_floor = int(in_data['first_floor'])
+    last_floor = int(in_data['last_floor'])
+    underground = in_data['underground']
 
+    price = model.predict([[total_meters, first_floor, last_floor, floors_count, underground]])
+    return int(price)
 
 
 @app.route('/favicon.ico')
