@@ -24,10 +24,21 @@ model = load(MODEL_SAVE_PATH)
 
 
 @auth.verify_token
-def verify_token(token):
-    if token in tokens:
-        return tokens[token]
-
+# def verify_token(token):
+#     if token in tokens:
+#         return tokens[token]
+#
+#
+#     area = float(in_data['area'])
+#     floor = int(in_data['floor'])
+#     floors_count = int(in_data['floors_count'])
+#     is_first = (floor == 1)
+#     is_last = (floor == floors_count)
+#     price = model.predict([[area,
+#                             is_first,
+#                             is_last,
+#                             floors_count]])
+#     return int(price)
 
 def predict(in_data: dict) -> int:
     """ Predict house price from input data parameters.
@@ -36,7 +47,7 @@ def predict(in_data: dict) -> int:
     :return: House price, RUB.
     :rtype: int
     """
-    total_meters = float(in_data['total_meters'])
+    total_meters = float(in_data['area'])
     floor = int(in_data['floor'])
     floors_count = int(in_data['floors_count'])
     first_floor = int(in_data['first_floor'])
