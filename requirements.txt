@@ -2,13 +2,13 @@
 flask
 flask-cors
 flask_httpauth
-cianparser
+# cianparser
 scikit-learn
 pandas
 boto3
 python-dotenv
 PyGithub
-jupyter
+#jupyter
 
 dvc[s3]
 catboost

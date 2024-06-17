@@ -4,7 +4,7 @@ import requests
 from dotenv import dotenv_values
 import pandas as pd
 
-endpoint = 'http://192.144.12.11:5000/predict'
+endpoint = 'http://192.144.12.11:8000/predict'
 
 config = dotenv_values(".env")
 HEADERS = {"Authorization": f"Bearer {config['APP_TOKEN']}"}
