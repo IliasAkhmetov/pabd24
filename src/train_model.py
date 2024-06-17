@@ -15,7 +15,7 @@ logging.basicConfig(
     format='%(asctime)s %(message)s')
 
 TRAIN_DATA = 'data/proc/train.csv'
-MODEL_SAVE_PATH = 'models/linear_regression_v01.joblib'
+MODEL_SAVE_PATH = 'models/catboost.joblib'
 
 
 def main(args):

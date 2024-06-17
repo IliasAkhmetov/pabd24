@@ -11,3 +11,4 @@ PyGithub
 jupyter
 matplotlib
 dvc[s3]
+catboost

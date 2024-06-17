@@ -31,23 +31,25 @@ def main(args):
         df = pd.DataFrame(data)
         main_dataframe = pd.concat([main_dataframe, df], axis=0)
 
+    # Фильтрация строк, где указано метро
+    main_dataframe = main_dataframe[pd.notna(main_dataframe['underground'])]
+
     main_dataframe['url_id'] = main_dataframe['url'].map(lambda x: x.split('/')[-2])
+    main_dataframe['first_floor'] = (main_dataframe['floor'] == 1).astype(int)
+    main_dataframe['last_floor'] = (main_dataframe['floor'] == main_dataframe['floors_count']).astype(int)
 
-    df = main_dataframe
-    df['first_floor'] = df['floor'] == 1
-    df['last_floor'] = df['floor'] == df['floors_count']
-
-    new_dataframe = df[['url_id',
-                        'total_meters',
-                        'first_floor',
-                        'last_floor',
-                        'floors_count',
-                        'price']].set_index('url_id')
+    new_dataframe = main_dataframe[['url_id',
+                                    'total_meters',
+                                    'first_floor',
+                                    'last_floor',
+                                    'floors_count',
+                                    'price',
+                                    'underground']].set_index('url_id')
 
     new_df = new_dataframe[new_dataframe['price'] < PRICE_THRESHOLD]
 
     border = int(args.split * len(new_df))
-    train_df, val_df = new_df[0:border], new_df[border:-1]
+    train_df, val_df = new_df.iloc[:border], new_df.iloc[border:]
     if args.split == 1:
         train_df.to_csv(OUT_TRAIN)
     elif args.split == 0:
@@ -56,7 +58,7 @@ def main(args):
         train_df.to_csv(OUT_TRAIN)
         val_df.to_csv(OUT_TEST)
     else:
-        raise "Wrong split test size!"
+        raise ValueError("Wrong split test size!")
 
     logger.info(f'Write {args.input} to train.csv and test.csv. Train set size: {args.split}')
 
