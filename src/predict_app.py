@@ -8,7 +8,7 @@ from flask_httpauth import HTTPTokenAuth
 from flask import send_from_directory
 from utils import predict_io_bounded, predict_cpu_bounded, predict_cpu_multithread
 
-MODEL_SAVE_PATH = 'models/catboost_regression_v02.joblib'
+MODEL_SAVE_PATH = 'models/catboost_regression_v01.joblib'
 
 app = Flask(__name__)
 CORS(app)
