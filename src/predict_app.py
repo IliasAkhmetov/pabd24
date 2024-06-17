@@ -48,7 +48,7 @@ def predict(in_data: dict) -> int:
     :rtype: int
     """
     total_meters = float(in_data['area'])
-    floor = int(in_data['floor'])
+    # floor = int(in_data['floor'])
     floors_count = int(in_data['floors_count'])
     first_floor = int(in_data['first_floor'])
     last_floor = int(in_data['last_floor'])
