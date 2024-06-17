@@ -9,6 +9,6 @@ boto3
 python-dotenv
 PyGithub
 jupyter
-matplotlib
+
 dvc[s3]
 catboost
