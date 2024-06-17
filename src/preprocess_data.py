@@ -21,7 +21,7 @@ OUT_TRAIN = 'data/proc/train.csv'
 OUT_TEST = 'data/proc/test.csv'
 
 TRAIN_SIZE = 0.9
-PRICE_THRESHOLD = 30_000_000
+PRICE_THRESHOLD = 100_000_000
 
 
 def main(args):
